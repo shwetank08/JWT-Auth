@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../model/user');
-exports.signup = async(req,res) => {
+exports.signup = async(req,res,next) => {
     try{
         const {name, email, password} = req.body;
         if(!name || !email || !password){
@@ -16,6 +16,7 @@ exports.signup = async(req,res) => {
             message: "Task added successfully",
             newUser
         })
+        next();
     }catch(err){
         console.log(err);
         res.status(400).send(err);

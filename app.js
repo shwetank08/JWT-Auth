@@ -3,7 +3,7 @@ require('./config/database').connect();
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const user = require('./controller/user');
+const user = require('./routes/user');
 const app = express();
 
 
