@@ -13,8 +13,34 @@ exports.signup = async(req,res,next) => {
 
         res.status(201).json({
             success: true,
-            message: "Task added successfully",
             newUser
+        })
+        next();
+    }catch(err){
+        console.log(err);
+        res.status(400).send(err);
+    }
+}
+exports.signin = async(req,res,next) => {
+    try{
+        const {email, password} = req.body;
+        if(!email || !password){
+            return res.status(400).send("All fields are required!");
+        }
+
+        const existingUser = await User.findOne({
+            email
+        })
+
+        if(!existingUser){
+            return res.status(400).json({
+                message: "invalid credentials"
+            })
+        }
+
+        res.status(201).json({
+            success: true,
+            existingUser
         })
         next();
     }catch(err){
